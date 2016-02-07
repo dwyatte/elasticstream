@@ -20,7 +20,7 @@ from elasticstream import ElasticStream
 parser = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 parser.add_argument('-u', '--url', help='Elasticsearch REST endpoint URL', default='localhost:9200')
 parser.add_argument('-i', '--index', help='Elasticsearch index to stream (wildcards allowed).', default='*')
-parser.add_argument('-d', '--dsl', help='Elasticsearch DSL query or @file containing query', default='{"query": {"match_all": {}}}')
+parser.add_argument('-d', '--dsl', help='Elasticsearch DSL query or @file containing query.', default='{"query": {"match_all": {}}}')
 parser.add_argument('-k', '--keepalive', help='Duration to keep scroll alive. Tune according to --size.', default='1m')
 parser.add_argument('-s', '--size', help='Number of hits to scroll at once. Tune according to sharding.', default='10')
 parser.add_argument('-t', '--test', help='Test the query, print the total hits, and exit.', action='store_true')
