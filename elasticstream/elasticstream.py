@@ -9,8 +9,7 @@ class ElasticStream(object):
 
     def __init__(self, url, index, dsl, scroll_keepalive='1m', scroll_size='10'):
         """
-        Initialize the context by performing the search once and storing context as fields such as the scroll_id,
-        number of hits, and the mappings so that the keys are consistent across scrolls
+        Initialize the context by performing the search once and storing context as fields such as the scroll_id/hits
         :param url: Elasticsearch host:port on which to execute query (e.g., localhost:9200)
         :param index: 'Elasticsearch index to query (*-wildcards allowed)'
         :param dsl: JSON string data specifying Elasticsearch DSL query
