@@ -22,7 +22,7 @@ output
                             syntax) containing query (default: {"query":
                             {"match_all": {}}})
       -f {jsonl,csv}, --format {jsonl,csv}
-                            Stream format. JSON lines (jsonl) or CSV (csv)
+                            Output format. JSON lines (jsonl) or CSV (csv)
                             (default: jsonl)
       -o OUTPUT, --output OUTPUT
                             Output file to stream to. If not stdout, prints

@@ -28,7 +28,7 @@ parser.add_argument('-k', '--keepalive', help='Duration to keep scroll alive. Tu
 parser.add_argument('-s', '--size', help='Number of hits to scroll at once. Tune according to sharding', default='10')
 parser.add_argument('-d', '--dsl', help='Elasticsearch DSL query or @file (e.g., "curl -d" syntax) containing query',
                     default='{"query": {"match_all": {}}}')
-parser.add_argument('-f', '--format', choices=['jsonl', 'csv'], help='Stream format. JSON lines (jsonl) or CSV (csv)',
+parser.add_argument('-f', '--format', choices=['jsonl', 'csv'], help='Output format. JSON lines (jsonl) or CSV (csv)',
                     default='jsonl')
 parser.add_argument('-o', '--output', help='Output file to stream to. If not stdout, prints progress to stdout',
                     default=sys.__stdout__)
