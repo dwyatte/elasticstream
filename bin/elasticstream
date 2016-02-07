@@ -90,5 +90,6 @@ except KeyboardInterrupt:
 
 finally:
     args.output.close()
-    sys.stdout.write('\n')
-    sys.stdout.flush()
+    if args.output is not sys.__stdout__:
+        sys.stdout.write('\n')
+        sys.stdout.flush()
