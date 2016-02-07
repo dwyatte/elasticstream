@@ -45,43 +45,50 @@ if args.output is not sys.__stdout__:
 
 stream = ElasticStream(args.url, args.index, args.dsl, scroll_keepalive=args.keepalive, scroll_size=args.size)
 start_time = time.time()
+start_hits = 0
 
-# headers
-if args.format == 'csv':
-    args.output.write(','.join(stream.mappings)+'\n')
+try:
+    # headers
+    if args.format == 'csv':
+        args.output.write(','.join(stream.mappings)+'\n')
 
-for hit in stream:
-    # see http://jsonlines.org/ for more info
-    if args.format == 'jsonl':
-        args.output.write(json.dumps(hit)+'\n')
-        args.output.flush()
+    for hit in stream:
+        # see http://jsonlines.org/ for more info
+        if args.format == 'jsonl':
+            args.output.write(json.dumps(hit)+'\n')
+            args.output.flush()
 
-    # csv is slightly more complicated. need to keep track of headers and quote strings
-    elif args.format == 'csv':
-        # sort hit in header order
-        hit_list = []
-        for mapping in stream.mappings:
-            if mapping in hit:
-                if stream.mappings[mapping]['type'] == 'string':
-                    # quote string in case it contains commas
-                    hit_list.append('"%s"' % hit[mapping])
+        # csv is slightly more complicated. need to keep track of headers and quote strings
+        elif args.format == 'csv':
+            # sort hit in header order
+            hit_list = []
+            for mapping in stream.mappings:
+                if mapping in hit:
+                    if stream.mappings[mapping]['type'] == 'string':
+                        # quote string in case it contains commas
+                        hit_list.append('"%s"' % hit[mapping])
+                    else:
+                        hit_list.append(str(hit[mapping]))
                 else:
-                    hit_list.append(hit[mapping])
-            else:
-                hit_list.append('')
-        args.output.write(','.join(hit_list)+'\n')
-        args.output.flush()
+                    hit_list.append('')
+            args.output.write(','.join(hit_list)+'\n')
+            args.output.flush()
 
-    # if aren't streaming to stdout, we can print metrics
-    if args.output is not sys.__stdout__ and stream.hits_scrolled % int(args.size) == 0:
-        elapsed_time = time.time() - start_time
-        sys.stdout.write('%d/%d hits (%f/sec)                                                                        \r'
-                         % (stream.hits_scrolled, stream.hits_total, stream.hits_scrolled/elapsed_time))
-        sys.stdout.flush()
-        time.sleep(0.1)
-        start_time = time.time()
+        # if aren't streaming to stdout, we can print progress
+        if args.output is not sys.__stdout__ and stream.hits_scrolled % int(args.size) == 0:
+            elapsed_time = time.time() - start_time
+            elapsed_hits = stream.hits_scrolled - start_hits
+            start_time = time.time()
+            start_hits = stream.hits_scrolled
 
-if args.output is not sys.__stdout__ and stream.hits_scrolled % int(args.size) == 0:
+            sys.stdout.write('   %d/%d hits (%f/sec)   \r'
+                             % (stream.hits_scrolled, stream.hits_total, elapsed_hits/elapsed_time))
+            sys.stdout.flush()
+            time.sleep(0.1)
+
+except KeyboardInterrupt:
     args.output.close()
-    sys.stdout.write('\nWrote to %s\n' % args.output.name)
-    sys.stdout.flush()
+
+sys.stdout.write('\n')
+sys.stdout.flush()
+
