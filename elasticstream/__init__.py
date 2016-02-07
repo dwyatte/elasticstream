@@ -1,0 +1,1 @@
+from elasticstream import ElasticStream
