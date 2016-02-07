@@ -1,5 +1,6 @@
 # elasticstream
-Lightweight script/library (no dependencies) that streams from Elasticsearch documents to JSON lines or CSV output
+Lightweight (no dependencies) Python script/library that streams from Elasticsearch documents to JSON lines or CSV
+output
 
 # bin/elasticstream usage
     usage: elasticstream [-h] [-u URL] [-i INDEX] [-k KEEPALIVE] [-s SIZE]
