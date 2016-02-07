@@ -21,9 +21,9 @@ output
       -d DSL, --dsl DSL     Elasticsearch DSL query or @file (e.g., "curl -d"
                             syntax) containing query (default: {"query":
                             {"match_all": {}}})
-      -f {jsonl,csv}, --format {jsonl,csv}
-                            Output format. JSON lines (jsonl) or CSV (csv)
-                            (default: jsonl)
+      -f {ndjson,csv}, --format {ndjson,csv}
+                            Output format. Newline-delimited JSON or CSV (default:
+                            ndjson)
       -o OUTPUT, --output OUTPUT
                             Output file to stream to. If not stdout, prints
                             progress to stdout (default: <open file '<stdout>',
