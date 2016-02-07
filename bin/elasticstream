@@ -87,7 +87,9 @@ try:
             time.sleep(0.1)
 
 except KeyboardInterrupt:
-    args.output.close()
+    pass
 
-sys.stdout.write('\n')
-sys.stdout.flush()
+finally:
+    args.output.close()
+    sys.stdout.write('\n')
+    sys.stdout.flush()
