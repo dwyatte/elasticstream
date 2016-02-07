@@ -46,6 +46,7 @@ if args.output is not sys.__stdout__:
 stream = ElasticStream(args.url, args.index, args.dsl, scroll_keepalive=args.keepalive, scroll_size=args.size)
 start_time = time.time()
 
+# headers
 if args.format == 'csv':
     args.output.write(','.join(stream.mappings)+'\n')
 
