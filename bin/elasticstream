@@ -75,9 +75,13 @@ for hit in stream:
     # if aren't streaming to stdout, we can print metrics
     if args.output is not sys.__stdout__ and stream.hits_scrolled % int(args.size) == 0:
         elapsed_time = time.time() - start_time
-        sys.stdout.write('%d/%d hits (%f/sec)\r' %
-                         (stream.hits_scrolled, stream.hits_total, stream.hits_scrolled/elapsed_time))
+        sys.stdout.write('%d/%d hits (%f/sec)                                                                        \r'
+                         % (stream.hits_scrolled, stream.hits_total, stream.hits_scrolled/elapsed_time))
         sys.stdout.flush()
         start_time = time.time()
+        time.sleep(0.1)
 
-args.output.close()
+if args.output is not sys.__stdout__ and stream.hits_scrolled % int(args.size) == 0:
+    args.output.close()
+    sys.stdout.write('\nWrote to %s\n' % args.output.name)
+    sys.stdout.flush()
