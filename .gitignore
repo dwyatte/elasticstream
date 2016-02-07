@@ -63,3 +63,4 @@ target/
 
 # other
 .idea
+.DS_STORE
