@@ -1,7 +1,7 @@
 # elasticstream
-Lightweight script/library that streams from Elasticsearch to JSON lines or CSV output
+Lightweight script/library (no dependencies) that streams from Elasticsearch documents to JSON lines or CSV output
 
-# usage (script)
+# bin/elasticstream usage
     usage: elasticstream [-h] [-u URL] [-i INDEX] [-k KEEPALIVE] [-s SIZE]
                          [-d DSL] [-f {jsonl,csv}] [-o OUTPUT]
     
@@ -28,7 +28,7 @@ Lightweight script/library that streams from Elasticsearch to JSON lines or CSV 
                             progress to stdout (default: <open file '<stdout>',
                             mode 'w' at 0x1082fd150>)
 
-# usage (library)
+# elasticstream.ElasticStream usage
     from elasticstream import ElasticStream
 
     url = 'localhost:9200'
