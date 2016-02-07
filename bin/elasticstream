@@ -55,7 +55,7 @@ try:
     for hit in stream:
         # see http://ndjson.org/ for more info
         if args.format == 'ndjson':
-            args.output.write(json.dumps(hit)+'\n')
+            args.output.write(json.dumps(hit['_source'])+'\n')
             args.output.flush()
 
         # csv is slightly more complicated. need to keep track of headers and quote strings
@@ -63,11 +63,11 @@ try:
             # sort hit in header order
             hit_list = []
             for mapping in stream.mappings:
-                if mapping in hit:
+                if mapping in hit['_source']:
                     if stream.mappings[mapping]['type'] == 'string':
-                        hit_list.append('"%s"' % hit[mapping])  # quote string just in case
+                        hit_list.append('"%s"' % hit['_source'][mapping])  # quote string just in case
                     else:
-                        hit_list.append(str(hit[mapping]))
+                        hit_list.append(str(hit['_source'][mapping]))
                 else:
                     hit_list.append('')  # missing data
             args.output.write(','.join(hit_list)+'\n')

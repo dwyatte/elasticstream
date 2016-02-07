@@ -50,7 +50,7 @@ class ElasticStream(object):
         response = json.load(urllib2.urlopen(request))
 
         self.scroll_id = response['_scroll_id']
-        return [hit['_source'] for hit in response['hits']['hits']]
+        return response['hits']['hits']
 
     def __iter__(self):
         """
