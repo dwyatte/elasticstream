@@ -65,12 +65,11 @@ try:
             for mapping in stream.mappings:
                 if mapping in hit:
                     if stream.mappings[mapping]['type'] == 'string':
-                        # quote string in case it contains commas
-                        hit_list.append('"%s"' % hit[mapping])
+                        hit_list.append('"%s"' % hit[mapping])  # quote string just in case
                     else:
                         hit_list.append(str(hit[mapping]))
                 else:
-                    hit_list.append('')
+                    hit_list.append('')  # missing data
             args.output.write(','.join(hit_list)+'\n')
             args.output.flush()
 
