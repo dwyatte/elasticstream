@@ -53,7 +53,7 @@ if args.format == 'csv':
 for hit in stream:
     # see http://jsonlines.org/ for more info
     if args.format == 'jsonl':
-        args.output.write(hit+'\n')
+        args.output.write(json.dumps(hit)+'\n')
         args.output.flush()
 
     # csv is slightly more complicated. need to keep track of headers and quote strings
