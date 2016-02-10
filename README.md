@@ -30,13 +30,15 @@ or CSV output
                             mode 'w' at 0x1082fd150>)
 
 # elasticstream.ElasticStream usage
-    from elasticstream import ElasticStream
+```python
+from elasticstream import ElasticStream
 
-    url = 'localhost:9200'
-    index = '*'
-    dsl = '{"query": {"match_all": {}}}'
+url = 'localhost:9200'
+index = '*'
+dsl = '{"query": {"match_all": {}}}'
 
-    stream = ElasticStream(url, index, dsl, scroll_keepalive='1m', scroll_size='10')
+stream = ElasticStream(url, index, dsl, scroll_keepalive='1m', scroll_size='10')
 
-    for hit in stream:
-        print hit
+for hit in stream:
+    print hit
+```
